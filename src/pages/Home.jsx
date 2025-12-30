@@ -53,6 +53,7 @@ export default function Home() {
                             }
                             
                         </p>
+                        <p>Sorry! This site is currently under maintenance. Some features may be temporarily unavailable.</p>
                     </div>
 
                     {/* Write Blog Button */}
@@ -71,9 +72,16 @@ export default function Home() {
 
                 {/* Blog grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 mg:grid-cols-3 lg:grid-cols-3 gap-6 w-full lg:pl-12 md:pl-10 sm:pl-8 p-3 ">
+                    
+                    if(blogs.length === 0) {
+                        <h3>Currently No Blog to View</h3>
+                    }
+
                     {blogs.map((blog) => (
                         <BlogCard key={blog._id} blog={blog} />
                     ))}
+
+                    
                 </div>
 
             </div>
