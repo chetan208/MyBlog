@@ -17,39 +17,25 @@ const router= createBrowserRouter([
     path:'/',
     element:<App/>,
     children:[
+
+      { path:"/", element:(<Home />)},
+
+      { path:"/login",  element: (<Login/>)},
+
+      { path:"/signup", element:(<Signup/>)},
+
+      { path:"blog/:id", element:( <ViewBlog />) },
+
+       // Protected routes
       {
-        path:"/",
-        element:(<Home />)
+        element: <Protected />, // <-- wraps all protected routes
+        children: [
+          { path: '/add-blog', element: <AddBlog /> },
+          // Add more protected routes here
+        ],
       },
 
-      {
-        path:"/login",
-        element: (<Login/>)
-      },
-
-      {
-        path:"/signup",
-        element:(<Signup/>)
-      },
-
-      {
-        path:"/add-blog",
-        element:(
-        
-          <Protected authentication={true}>
-              <AddBlog />
-          </Protected>
-        
-
-        )
-      },
-
-      {
-        path:"blog/:id",
-        element:(
-              <ViewBlog />
-        )
-      },
+      
 
     ]
   }
