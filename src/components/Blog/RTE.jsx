@@ -8,7 +8,7 @@ export default function RTE({ value, onChange, height }) {
             className='border-2 border-gray-300 rounded-md'
         >
             <Editor
-                apiKey="2silmu89knbsswole021s5ih8pt9m0nmaa9oetbciy92531e"
+                apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
                 value={value}
                 onEditorChange={onChange}
                 init={{
