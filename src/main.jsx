@@ -31,7 +31,6 @@ const router= createBrowserRouter([
         element: <Protected />, // <-- wraps all protected routes
         children: [
           { path: '/add-blog', element: <AddBlog /> },
-          // Add more protected routes here
         ],
       },
 

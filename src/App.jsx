@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 import { useEffect } from 'react';
 import checkAuth from './services/auth/checkAuth';
 import { useDispatch, useSelector } from 'react-redux';
-
+import ScrollToTop from "./components";
 
 
 
@@ -28,6 +28,7 @@ function App() {
     <>
       <div>
         <Header />
+        <ScrollToTop/>
         <Outlet />
         <Footer />
       </div>
