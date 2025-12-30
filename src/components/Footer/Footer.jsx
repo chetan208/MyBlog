@@ -12,7 +12,7 @@ function Footer() {
 
           {/* Brand */}
           <div>
-            <h2 className="text-xl font-bold text-blue-400">MyBlog</h2>
+            <h2 className="text-xl font-bold text-blue-400">BlogIt</h2>
             <p className="text-sm mt-2 max-w-xs text-gray-400">
               A place to read, write, and share knowledge with the world.
             </p>

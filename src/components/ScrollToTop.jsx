@@ -2,13 +2,25 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const ScrollToTop = () => {
-  const { pathname } = useLocation(); // gives current route path
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0); // scrolls to top-left corner
-  }, [pathname]); // run effect whenever route changes
+    // Scroll to top on route change
+    window.scrollTo(0, 0);
 
-  return null; // no UI
+    // Scroll to top on page refresh
+    const handleLoad = () => {
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener("load", handleLoad);
+
+    // Cleanup the event listener
+    return () => {
+      window.removeEventListener("load", handleLoad);
+    };
+  }, [pathname]);
+
+  return null;
 };
 
 export default ScrollToTop;

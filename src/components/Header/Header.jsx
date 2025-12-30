@@ -31,7 +31,7 @@ function Header() {
               className="text-xl font-bold text-blue-600 cursor-pointer 
               flex items-center h-10"
             >
-              MyBlog
+              BlogIt
             </h1>
           </div>
 

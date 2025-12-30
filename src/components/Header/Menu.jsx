@@ -90,7 +90,7 @@ export default function Sidebar({ menuOpen, setMenuOpen }) {
                     {/* Header */}
                     <div className="flex items-center justify-between pb-4 border-b">
                         <h1 className="font-bold text-2xl text-blue-600 tracking-tight">
-                            My Blog
+                            BlogIt
                         </h1>
 
                         <RxCross2
