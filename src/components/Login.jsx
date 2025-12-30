@@ -2,7 +2,7 @@ import React from "react";
 import { Input, Button } from "./index"
 import { useForm } from 'react-hook-form';
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import checkAuth from "../services/auth/checkAuth";
 
@@ -76,7 +76,7 @@ function Login({
 
                 <div className="mt-2">
                     <p>
-                        Don't have an account? <a href="/signup" className="text-blue-500">Sign up</a>
+                        Don't have an account? <Link to="/signup" className="text-blue-500">Sign up</Link>
                     </p>
 
                 </div>

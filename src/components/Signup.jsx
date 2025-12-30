@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Input, Button } from "./index"
 import { useForm } from 'react-hook-form';
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import checkAuth from "../services/auth/checkAuth";
 import { login } from "../store/authslice";
 import { useDispatch } from "react-redux";
@@ -205,7 +205,7 @@ function Signup({
 
         <div className="mt-2">
           <p>
-            Already have an account?  <a href="/login" className="text-blue-500">Log in</a>
+            Already have an account?  <Link to="/login" className="text-blue-500">Log in</Link>
           </p>
 
         </div>
