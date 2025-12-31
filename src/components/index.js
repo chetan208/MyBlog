@@ -10,6 +10,7 @@ import ViewBlog from "./Blog/ViewBlog";
 import BlogCard from "./Blog/Card";
 import Footer from "./Footer/Footer";
 import ScrollToTop from "./ScrollToTop";
+import About from "./AboutUs";
 
 export{
     Header,
@@ -23,5 +24,6 @@ export{
     ViewBlog,
     BlogCard,
     Footer,
-    ScrollToTop
+    ScrollToTop,
+    About
 }

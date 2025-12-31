@@ -1,6 +1,6 @@
 import React from "react";
 import { RxCross2 } from "react-icons/rx";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
 import { IoHome } from "react-icons/io5";
 import { TfiWrite } from "react-icons/tfi";
@@ -20,6 +20,7 @@ import { useSelector, useDispatch } from "react-redux";
 export default function Sidebar({ menuOpen, setMenuOpen }) {
     const AuthStatus = useSelector((state) => state.auth.status);
     const user = useSelector((state) => state.auth.userData);
+    const navigate=useNavigate()
 
     const dispatch = useDispatch();
 
@@ -28,7 +29,7 @@ export default function Sidebar({ menuOpen, setMenuOpen }) {
 
         {
             name: "Explore Blogs",
-            path: "/blogs",
+            path: "/",
             icon: MdExplore,
         },
 
@@ -40,10 +41,10 @@ export default function Sidebar({ menuOpen, setMenuOpen }) {
         },
 
         { path: "/about", name: "About", icon: FcAbout },
-        { path: "/contact", name: "Contact", icon: MdOutlineConnectWithoutContact },
+        { path: "/", name: "Contact", icon: MdOutlineConnectWithoutContact },
 
         {
-            path: "/settings",
+            path: "/",
             name: "Settings",
             icon: IoSettingsOutline,
             authentication: true,
@@ -108,7 +109,7 @@ export default function Sidebar({ menuOpen, setMenuOpen }) {
 
                             return (
                                 <div
-                                    key={item.path}
+                                    key={item.name}
                                     className={`group rounded-xl transition  hover:bg-gray-100
                                     ${item.name === "Explore Blogs" ? "bg-gray-50" : ""}`}
                                 >

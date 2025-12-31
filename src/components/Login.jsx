@@ -2,44 +2,54 @@ import React from "react";
 import { Input, Button } from "./index"
 import { useForm } from 'react-hook-form';
 import axios from "axios";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import checkAuth from "../services/auth/checkAuth";
+import { useState } from "react";
 
 
 function Login({
     className = ""
 }) {
-    const { register, handleSubmit } = useForm();
-    const navigate=useNavigate();
+    const { register, handleSubmit, reset } = useForm();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [error, seterror] = useState();
+    const [loading, setLoading] = useState(false);
 
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 
-    const handlelogin=async(data)=>{
-        
+    const handlelogin = async (data) => {
+
         try {
-            
-            await axios.post(`${BACKEND_URL}/api/login`,{
-            email:data.email,
-            password:data.password
-        },{ withCredentials: true } )
-        .then((res)=>{
-            if (res.data.success){
-                console.log("login ho gya hai")
-                checkAuth(dispatch)
-                navigate("/")
-            } ;
+            setLoading(true);
+            await axios.post(`${BACKEND_URL}/api/login`, {
+                email: data.email,
+                password: data.password
+            }, { withCredentials: true })
+                .then((res) => {
+                    if (res.data.success) {
+                        console.log("login ho gya hai")
+                        checkAuth(dispatch)
+                        navigate("/")
+                    };
 
-        })
-        .catch((err)=>(console.log(err)))
-        
+                })
+                .catch((err) => (
 
+                    seterror(err.response.data.error)
+
+                ))
         } catch (error) {
             console.log("login failed")
+        } finally {
+            setLoading(false);
         }
     }
+    setTimeout(() => {
+        seterror("");
+    }, 3000)
 
     return (
         <div className={`${className}`}>
@@ -51,6 +61,7 @@ function Login({
                         placeholder="Enter your Email"
                         type="email"
                         className="mt-1"
+                        error={(error === "No User Found!!") ? "No User Found with this email please Sign in" : null}
                         {...register("email", {
                             required: true,
                             validate: {
@@ -67,6 +78,9 @@ function Login({
                         placeholder="Enter your Password"
                         type="text"
                         className="mt-1"
+
+                        error={(error === "password incorrect") ? error : null}
+
                         {...register("password", {
                             required: true,
                         })}
@@ -81,10 +95,26 @@ function Login({
 
                 </div>
 
-                <Button
+                <button
                     type="submit"
-                    className="w-auto mt-2"
-                >Login</Button>
+                    disabled={loading}
+                    className={`w-35 py-2 rounded-lg font-semibold  text-white flex items-center justify-center gap-2 mt-2
+                            ${loading
+                            ? "bg-blue-400 cursor-not-allowed"
+                            : "bg-blue-500 hover:bg-blue-600 cursor-pointer active:scale-98"}
+                             `}
+                    
+                >
+                    {loading ? (
+                        <>
+                            {/* Spinner */}
+                            <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                            Processing...
+                        </>
+                    ) : (
+                        "Log in"
+                    )}
+                </button>
 
             </form>
         </div>

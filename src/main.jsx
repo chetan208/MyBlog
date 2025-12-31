@@ -8,7 +8,7 @@ import  store  from "./store/store.js";
 import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
 
-import { AddBlog, ViewBlog } from './components/index.js';
+import { AddBlog, ViewBlog,About } from './components/index.js';
 import Home from './pages/Home.jsx'
 import Protected from './protect.jsx';
 
@@ -25,6 +25,8 @@ const router= createBrowserRouter([
       { path:"/signup", element:(<Signup/>)},
 
       { path:"blog/:id", element:( <ViewBlog />) },
+
+      { path:"/about", element:( <About/>) },
 
        // Protected routes
       {

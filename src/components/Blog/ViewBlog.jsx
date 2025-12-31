@@ -1,50 +1,56 @@
 import axios from "axios";
-import React, { useEffect , useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import DOMPurify from "dompurify";
+import { SlLike } from "react-icons/sl";
+import { FaRegShareSquare } from "react-icons/fa";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import BlogActionMenu from "./BlogOption";
+
 
 export default function ViewBlog() {
 
-  const [blog,setBlog]=useState({})
-   const [user, setuser] = useState("");
+  const [blog, setBlog] = useState({})
+  const [user, setuser] = useState("");
 
   const { id } = useParams();
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 
-  useEffect(()=>{
+  useEffect(() => {
 
     try {
-       async function getBlog(id) {
-      const res = await axios.get(`${BACKEND_URL}/api/blog/${id}`)
+      async function getBlog(id) {
+        const res = await axios.get(`${BACKEND_URL}/api/blog/${id}`)
 
-      res.data.success? setBlog(res.data.blog) :  console.log(res.data)
-    }
+        res.data.success ? setBlog(res.data.blog) : console.log(res.data)
+      }
 
-    getBlog(id);
+      getBlog(id);
     } catch (error) {
       console.log(error)
     }
 
-  },[])
+  }, [])
 
   useEffect(() => {
-      const findUser = async () => {
-        try {
-          const res = await axios.get(
-            `${BACKEND_URL}/api/finduser/${blog.createdBy}`
-          );
-          setuser(res.data);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-  
-      if (blog?.createdBy) {
-        findUser();
+    const findUser = async () => {
+      try {
+        const res = await axios.get(
+          `${BACKEND_URL}/api/finduser/${blog.createdBy}`
+        );
+        setuser(res.data);
+      } catch (error) {
+        console.log(error);
       }
-    }, [blog?.createdBy]);
+    };
 
- 
+    if (blog?.createdBy) {
+      findUser();
+    }
+  }, [blog?.createdBy]);
+
+
 
   return (
     <div className="bg-gray-100 min-h-screen px-4 py-6">
@@ -53,7 +59,7 @@ export default function ViewBlog() {
 
         {/* LEFT : BLOG CONTENT */}
         <div className="lg:col-span-2 bg-white rounded-xl shadow-md overflow-hidden  ">
-          
+
           {/* Cover */}
           <div className=" md:h-100 lg:h-120 sm:h-90 h-80 py-3 flex items-center justify-center">
             <img
@@ -65,20 +71,28 @@ export default function ViewBlog() {
 
           {/* Content */}
           <div className="p-5 md:p-8">
-            <h1 className="text-3xl md:text-4xl font-bold">
-             {blog.title}
+
+           <div className="flex" >
+             <div className="p-1" >
+              <h1 className="text-3xl md:text-4xl font-bold">
+              {blog.title}
             </h1>
 
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-sm text-gray-500 mt-2 ml-1">
               By <span className="font-medium">{user.fullName}</span> • {new Date(blog.updatedAt).toLocaleDateString()}
             </p>
+             </div>
+             {/* {three dot} */}
+           </div>
 
             <hr className="my-6" />
 
-            <div className="text-gray-800 leading-8 space-y-4"
-            dangerouslySetInnerHTML={{ __html: blog.body }}
+            <div className="blog-content max-w-none"
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(blog.body),
+              }}
             >
-             
+
             </div>
 
             {/* TAGS
@@ -94,14 +108,14 @@ export default function ViewBlog() {
             </div> */}
 
             {/* LIKE / SHARE (INSIDE CONTENT) */}
-            {/* <div className="flex gap-4 mt-8">
+            <div className="flex gap-4 mt-8">
               <button className="px-5 py-2 bg-red-100 rounded-lg hover:bg-red-200">
-                ❤️ Like
+                <SlLike/>
               </button>
               <button className="px-5 py-2 bg-blue-100 rounded-lg hover:bg-blue-200">
-                🔗 Share
+                <FaRegShareSquare/>
               </button>
-            </div> */}
+            </div>
           </div>
         </div>
 
@@ -113,7 +127,7 @@ export default function ViewBlog() {
           <div className="bg-white rounded-xl shadow-md p-5 lg:sticky lg:top-23">
             <div className="flex items-center gap-3">
               <img
-                src={user.avatar?.url}
+                src={user.avatar?.url || null}
                 alt="author"
                 className="w-14 h-14 rounded-full"
               />
@@ -178,7 +192,7 @@ export default function ViewBlog() {
 
         </div>
 
-        
+
       </div>
     </div>
   );

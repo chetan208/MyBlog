@@ -1,5 +1,5 @@
 import React from "react"
-import { Link ,useNavigate} from "react-router-dom"
+import { Link ,useNavigate,useLocation} from "react-router-dom"
 import DropDown from "./DropedDown"
 import { useSelector } from "react-redux"
 import {ProfileMenu} from "../index"
@@ -8,7 +8,18 @@ import {ProfileMenu} from "../index"
 export default function DesktopNavItems(){
      const status = useSelector((state) => (state.auth.status))
 
-     const navigate=useNavigate()
+
+      const handleAboutClick = () => {
+    if (location.pathname === "/") {
+      // Already on homepage, just scroll
+      const aboutSection = document.getElementById("about");
+      aboutSection?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // Navigate to homepage with state flag
+      navigate("/about");
+    }
+  };
+
     return (
         <nav className="hidden md:flex items-center space-x-6">
 
@@ -33,11 +44,11 @@ export default function DesktopNavItems(){
 
                         {status? (
                             
-                             <Link to="/add-blog" className="hover:text-blue-600">Write</Link>
+                             <Link to="/add-blog"  className="hover:text-blue-600">Write</Link>
                         ) : null}
 
                         
-                         <Link to="/about" className="hover:text-blue-600">About</Link>
+                         <Link onClick={handleAboutClick} className="hover:text-blue-600">About</Link>
                          <Link to="/contact" className="hover:text-blue-600">Contact</Link>
 
                         <input

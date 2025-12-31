@@ -17,7 +17,6 @@ function ProfileMenu() {
   const profileimgUrl=useSelector((state)=>(state.auth.userData.avatar.url));
   const publicId=useSelector((state)=>(state.auth.userData.avatar.publicId));
 
-  console.log(publicId)
 
   const capitalize = (str = "") =>
     str.charAt(0).toUpperCase() + str.slice(1);

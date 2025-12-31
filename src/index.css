@@ -1,3 +1,39 @@
 @import "tailwindcss";
 
+@layer components {
+  .blog-content h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin: 1rem 0;
+  }
+
+  .blog-content h2 {
+    font-size: 1.875rem;
+    font-weight: 600;
+    margin: 0.75rem 0;
+  }
+
+  .blog-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0.5rem 0;
+  }
+
+  .blog-content p {
+    margin: 0.5rem 0;
+    line-height: 1.75;
+  }
+
+  .blog-content ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+  }
+
+  .blog-content ol {
+    list-style: decimal;
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+  }
+}
 
