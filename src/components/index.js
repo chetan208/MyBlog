@@ -11,6 +11,7 @@ import BlogCard from "./Blog/Card";
 import Footer from "./Footer/Footer";
 import ScrollToTop from "./ScrollToTop";
 import About from "./AboutUs";
+import Popup from "./popUp";
 
 export{
     Header,
@@ -25,5 +26,6 @@ export{
     BlogCard,
     Footer,
     ScrollToTop,
-    About
+    About,
+    Popup
 }

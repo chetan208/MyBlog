@@ -7,6 +7,7 @@ import {ProfileMenu} from "../index"
 
 export default function DesktopNavItems(){
      const status = useSelector((state) => (state.auth.status))
+     const navigate = useNavigate()
 
 
       const handleAboutClick = () => {

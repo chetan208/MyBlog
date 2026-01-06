@@ -1,0 +1,53 @@
+import { useEffect } from "react";
+import { createPortal } from "react-dom";
+
+export default function Popup({
+  open,
+  onClose,
+  title,
+  children,
+  width = "400px",
+}) {
+  // Close on ESC
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+
+    document.addEventListener("keydown", handleEsc);
+    return () => document.removeEventListener("keydown", handleEsc);
+  }, [onClose]);
+
+  if (!open) return null;
+
+  return createPortal(
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/40 "
+        onClick={onClose}
+      />
+
+      {/* Modal */}
+      <div
+        style={{ width }}
+        className="relative bg-white rounded-2xl shadow-xl p-6 z-10 animate-scaleIn"
+      >
+        {/* Header */}
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg font-semibold">{title}</h2>
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-700 text-xl"
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Body */}
+        <div>{children}</div>
+      </div>
+    </div>,
+    document.body
+  );
+}

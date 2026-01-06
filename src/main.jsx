@@ -11,6 +11,7 @@ import Signup from './pages/Signup.jsx';
 import { AddBlog, ViewBlog,About } from './components/index.js';
 import Home from './pages/Home.jsx'
 import Protected from './protect.jsx';
+import EditBlog from './components/Blog/EditBlog.jsx';
 
 const router= createBrowserRouter([
   {
@@ -33,6 +34,7 @@ const router= createBrowserRouter([
         element: <Protected />, // <-- wraps all protected routes
         children: [
           { path: '/add-blog', element: <AddBlog /> },
+          {path:'/edit-blog/:id',element:(<EditBlog/>)}
         ],
       },
 

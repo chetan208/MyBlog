@@ -4,11 +4,16 @@ import { useParams } from "react-router-dom";
 import DOMPurify from "dompurify";
 import { SlLike } from "react-icons/sl";
 import { FaRegShareSquare } from "react-icons/fa";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import BlogActionMenu from "./BlogOption";
+import { useDispatch } from "react-redux";
+import { addblog } from "../../store/blogslice";
+import AddComment from "./addComment";
+
 
 
 export default function ViewBlog() {
+
+  const dispatch=useDispatch()
 
   const [blog, setBlog] = useState({})
   const [user, setuser] = useState("");
@@ -18,20 +23,25 @@ export default function ViewBlog() {
 
 
   useEffect(() => {
-
+  const getBlog = async (id) => {
     try {
-      async function getBlog(id) {
-        const res = await axios.get(`${BACKEND_URL}/api/blog/${id}`)
+      const res = await axios.get(`${BACKEND_URL}/api/blog/${id}`);
 
-        res.data.success ? setBlog(res.data.blog) : console.log(res.data)
+      if (res.data.success) {
+        setBlog(res.data.blog);
+        dispatch(addblog(res.data.blog));
+      } else {
+        console.log(res.data);
       }
 
-      getBlog(id);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
+  };
 
-  }, [])
+  getBlog(id);
+}, []);
+
 
   useEffect(() => {
     const findUser = async () => {
@@ -72,17 +82,17 @@ export default function ViewBlog() {
           {/* Content */}
           <div className="p-5 md:p-8">
 
-           <div className="flex" >
+           <div className="flex justify-between" >
              <div className="p-1" >
               <h1 className="text-3xl md:text-4xl font-bold">
               {blog.title}
             </h1>
 
-            <p className="text-sm text-gray-500 mt-2 ml-1">
+            <p className="text-sm text-gray-500 mt-2">
               By <span className="font-medium">{user.fullName}</span> • {new Date(blog.updatedAt).toLocaleDateString()}
             </p>
              </div>
-             {/* {three dot} */}
+             <BlogActionMenu user={user} />
            </div>
 
             <hr className="my-6" />
@@ -148,18 +158,10 @@ export default function ViewBlog() {
           </div>
 
           {/* COMMENTS */}
-          {/* <div className="bg-white rounded-xl shadow-md p-5 lg:sticky lg:top-66">
+          <div className="bg-white rounded-xl shadow-md p-5 lg:sticky lg:top-66">
             <h2 className="text-lg font-semibold mb-3">Comments</h2>
-
-            <textarea
-              rows="3"
-              placeholder="Write a comment..."
-              className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-
-            <button className="mt-3 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
-              Post Comment
-            </button>
+            
+             <AddComment/>
 
             <div className="mt-5 space-y-4">
               <div className="flex gap-3">
@@ -188,7 +190,7 @@ export default function ViewBlog() {
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
 
         </div>
 
