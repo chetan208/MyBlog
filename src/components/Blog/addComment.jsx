@@ -3,7 +3,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 
-function AddComment() {
+function AddComment({number=0,isEdit,editContent="",setRefreshComments}) {
 
     const [content, setcontent] = useState("")
     const [loading, setloading] = useState(false)
@@ -11,7 +11,11 @@ function AddComment() {
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
     const { id } = useParams()
 
+    console.log(content)
 
+    useEffect(()=>{
+        setcontent(editContent)
+    },[editContent])
     useEffect(() => {
         if (content) {
             setBtnDissable(false);
@@ -26,6 +30,8 @@ function AddComment() {
             await axios.post(`${BACKEND_URL}/api/comment/add/${id}`, {
                 content
             }, { withCredentials: true })
+            setcontent("")
+            setRefreshComments(prev=>!prev)
             setloading(false)
         } catch (error) {
             console.log("error in adding comment", error)
@@ -34,8 +40,9 @@ function AddComment() {
 
     return (
         <>
+        <h2 className="text-lg font-semibold mb-3">Comments({number})</h2>
             <textarea
-                rows="3"
+                rows="2"
                 placeholder="Write a comment..."
                 value={content}
 
@@ -45,7 +52,7 @@ function AddComment() {
 
             <button
                 disabled={btnDissabled}
-                className={`mt-3 w-full py-2 rounded-lg font-semibold flex items-center justify-center gap-2 text-white transition-all duration-300 cursor-pointer
+                className={` w-full py-2 rounded-lg font-semibold flex items-center justify-center gap-2 text-white transition-all duration-300 cursor-pointer
                     ${loading
                         ? "bg-blue-400 cursor-not-allowed opacity-70"
                         : "bg-blue-600 hover:bg-blue-700 active:scale-99"
@@ -59,12 +66,15 @@ function AddComment() {
 
                         <div className=" flex justify-center w-full" >
                             <div className="mr-1" ><span className="w-5 h-5 border-2 cursor-not-allowed border-white border-t-transparent rounded-full animate-spin inline-block"></span></div>
-                            <p>Posting...</p>
+                            <p>{isEdit? "Saving..." : "Posting..."}</p>
                         </div>
 
                     </>
                 ) : (
-                    "Post"
+                    <>
+                    {isEdit? "Edit" : "Post"}
+                    </>
+                    
                 )}
             </button>
         </>

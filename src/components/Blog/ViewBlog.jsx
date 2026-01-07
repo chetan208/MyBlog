@@ -8,39 +8,41 @@ import BlogActionMenu from "./BlogOption";
 import { useDispatch } from "react-redux";
 import { addblog } from "../../store/blogslice";
 import AddComment from "./addComment";
+import Comments from "./ViewComments";
 
 
 
 export default function ViewBlog() {
 
-  const dispatch=useDispatch()
+  const dispatch = useDispatch()
 
   const [blog, setBlog] = useState({})
   const [user, setuser] = useState("");
+  const [refreshComments, setRefreshComments] = useState(false);
 
   const { id } = useParams();
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 
   useEffect(() => {
-  const getBlog = async (id) => {
-    try {
-      const res = await axios.get(`${BACKEND_URL}/api/blog/${id}`);
+    const getBlog = async (id) => {
+      try {
+        const res = await axios.get(`${BACKEND_URL}/api/blog/${id}`);
 
-      if (res.data.success) {
-        setBlog(res.data.blog);
-        dispatch(addblog(res.data.blog));
-      } else {
-        console.log(res.data);
+        if (res.data.success) {
+          setBlog(res.data.blog);
+          dispatch(addblog(res.data.blog));
+        } else {
+          console.log(res.data);
+        }
+
+      } catch (error) {
+        console.log(error);
       }
+    };
 
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  getBlog(id);
-}, []);
+    getBlog(id);
+  }, []);
 
 
   useEffect(() => {
@@ -82,18 +84,18 @@ export default function ViewBlog() {
           {/* Content */}
           <div className="p-5 md:p-8">
 
-           <div className="flex justify-between" >
-             <div className="p-1" >
-              <h1 className="text-3xl md:text-4xl font-bold">
-              {blog.title}
-            </h1>
+            <div className="flex justify-between" >
+              <div className="p-1" >
+                <h1 className="text-3xl md:text-4xl font-bold">
+                  {blog.title}
+                </h1>
 
-            <p className="text-sm text-gray-500 mt-2">
-              By <span className="font-medium">{user.fullName}</span> • {new Date(blog.updatedAt).toLocaleDateString()}
-            </p>
-             </div>
-             <BlogActionMenu user={user} />
-           </div>
+                <p className="text-sm text-gray-500 mt-2">
+                  By <span className="font-medium">{user.fullName}</span> • {new Date(blog.updatedAt).toLocaleDateString()}
+                </p>
+              </div>
+              <BlogActionMenu user={user} />
+            </div>
 
             <hr className="my-6" />
 
@@ -120,79 +122,44 @@ export default function ViewBlog() {
             {/* LIKE / SHARE (INSIDE CONTENT) */}
             <div className="flex gap-4 mt-8">
               <button className="px-5 py-2 bg-red-100 rounded-lg hover:bg-red-200">
-                <SlLike/>
+                <SlLike />
               </button>
               <button className="px-5 py-2 bg-blue-100 rounded-lg hover:bg-blue-200">
-                <FaRegShareSquare/>
+                <FaRegShareSquare />
               </button>
             </div>
           </div>
         </div>
 
 
-        {/* RIGHT : AUTHOR (TOP) + COMMENTS */}
-        <div className="space-y-6">
+        {/* RIGHT : AUTHOR + COMMENTS */}
+        <div className="lg:col-span-1">
+          {/* Sticky Sidebar */}
+          <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col gap-6 lg:sticky lg:top-18 max-h-[calc(100vh-2.5rem)]">
 
-          {/* AUTHOR CARD (TOP RIGHT) */}
-          <div className="bg-white rounded-xl shadow-md p-5 lg:sticky lg:top-23">
-            <div className="flex items-center gap-3">
+            {/* AUTHOR CARD */}
+            <div className="flex items-center gap-4">
               <img
-                src={user.avatar?.url || null}
+                src={user.avatar?.url || ""}
                 alt="author"
-                className="w-14 h-14 rounded-full"
+                className="w-14 h-14 rounded-full object-cover border"
               />
               <div>
-                <p className="font-semibold">{user.fullName}</p>
-
-                {/* <p className="text-sm text-gray-500">
-                  Full Stack Developer
-                </p> */}
-
+                <p className="font-semibold text-gray-900">{user.fullName}</p>
+                {/* Optional role */}
+                {/* <p className="text-sm text-gray-500">Full Stack Developer</p> */}
               </div>
             </div>
+            <p className="text-sm text-gray-600">{blog.discription}</p>
 
-            <p className="text-sm text-gray-600 mt-3">
-              {blog.discription}
-            </p>
-
-          </div>
-
-          {/* COMMENTS */}
-          <div className="bg-white rounded-xl shadow-md p-5 lg:sticky lg:top-66">
-            <h2 className="text-lg font-semibold mb-3">Comments</h2>
-            
-             <AddComment/>
-
-            <div className="mt-5 space-y-4">
-              <div className="flex gap-3">
-                <img
-                  src="https://i.pravatar.cc/40"
-                  alt="user"
-                  className="w-9 h-9 rounded-full"
-                />
-                <div className="bg-gray-100 p-3 rounded-lg text-sm">
-                  <p className="font-semibold">User123</p>
-                  <p>This blog was very helpful.</p>
-                  <p className="text-xs text-gray-500 mt-1">2 hours ago</p>
-                </div>
-              </div>
-
-              <div className="flex gap-3">
-                <img
-                  src="https://i.pravatar.cc/41"
-                  alt="user"
-                  className="w-9 h-9 rounded-full"
-                />
-                <div className="bg-gray-100 p-3 rounded-lg text-sm">
-                  <p className="font-semibold">DevGuy</p>
-                  <p>Loved the consistency part.</p>
-                  <p className="text-xs text-gray-500 mt-1">1 day ago</p>
-                </div>
-              </div>
+            {/* COMMENTS */}
+            <div className="flex-1   space-y-4 pr-2">
+              <Comments refreshComments={refreshComments} setRefreshComments={setRefreshComments} />
             </div>
-          </div>
 
+          </div>
         </div>
+
 
 
       </div>
