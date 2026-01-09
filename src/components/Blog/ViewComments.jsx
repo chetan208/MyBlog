@@ -5,11 +5,14 @@ import { useParams, useSearchParams } from "react-router-dom";
 import Popup from '../popUp';
 import AddComment from './addComment';
 
-function Comments({refreshComments,setRefreshComments}) {
+function Comments({ refreshComments, setRefreshComments }) {
     const { id } = useParams();
     const [comments, setComments] = useState([])
     const [deleteOpen, setDeleteOpen] = useState(false)
+    const [deleteSuccess, setDeleteSuccess] = useState(false)
     const [isEdit, setisEdit] = useState(false)
+    const [deleteId, setDeleteId] = useState(null);
+
     const [editableContant, setEditableContent] = useState("")
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
@@ -27,7 +30,25 @@ function Comments({refreshComments,setRefreshComments}) {
         return new Date(date).toLocaleDateString();
     }
 
-    function handleDelete() {
+    useEffect(() => {
+        if (deleteSuccess) {
+            const timer = setTimeout(() => {
+                setDeleteSuccess(false);
+            }, 2000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [deleteSuccess]);
+
+    async function handleDelete(_id) {
+        try {
+            await axios.delete(`${BACKEND_URL}/api/comment/delete-comment/${_id}`)
+            setDeleteOpen(false)
+            setDeleteId(null);
+            setRefreshComments(prev => !prev);
+        } catch (error) {
+            console.log("error in deleting comment", error)
+        }
 
     }
     useEffect(() => {
@@ -42,16 +63,21 @@ function Comments({refreshComments,setRefreshComments}) {
             }
         }
         if (id) Getcomments()
-    }, [id,refreshComments])
+    }, [id, refreshComments])
+
+    const authStatus = useSelector((state) => state.auth.status)
     return (
         <>
+            {
+                authStatus && <AddComment
+                    number={comments.length}
+                    isEdit={isEdit}
+                    editContent={editableContant}
+                    setRefreshComments={setRefreshComments}
+                />
+            }
 
-            <AddComment
-                number={comments.length}
-                isEdit={isEdit}
-                editContent={editableContant}
-                setRefreshComments={setRefreshComments}
-            />
+
             <div className="mt-6 max-h-70 overflow-y-auto space-y-5 pr-2">
                 {comments.map((comment) => (
                     <div
@@ -90,7 +116,10 @@ function Comments({refreshComments,setRefreshComments}) {
                                     </button>
                                     <button
                                         className="text-red-500 text-xs font-semibold hover:underline cursor-pointer"
-                                        onClick={() => setDeleteOpen(true)}
+                                        onClick={() => {
+                                            setDeleteId(comment._id);
+                                            setDeleteOpen(true)
+                                        }}
                                     >
                                         Delete
                                     </button>
@@ -116,16 +145,21 @@ function Comments({refreshComments,setRefreshComments}) {
                                         Cancel
                                     </button>
                                     <button
-                                        onClick={handleDelete}
+                                        onClick={() => handleDelete(deleteId)}
                                         className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition"
                                     >
                                         Delete
                                     </button>
                                 </div>
                             </Popup>
+
+
+
                         </div>
                     </div>
+
                 ))}
+               
             </div>
 
         </>

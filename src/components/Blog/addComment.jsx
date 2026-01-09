@@ -11,7 +11,7 @@ function AddComment({number=0,isEdit,editContent="",setRefreshComments}) {
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
     const { id } = useParams()
 
-    console.log(content)
+  
 
     useEffect(()=>{
         setcontent(editContent)
