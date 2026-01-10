@@ -9,9 +9,9 @@ function Comments({ refreshComments, setRefreshComments }) {
     const { id } = useParams();
     const [comments, setComments] = useState([])
     const [deleteOpen, setDeleteOpen] = useState(false)
-    const [deleteSuccess, setDeleteSuccess] = useState(false)
     const [isEdit, setisEdit] = useState(false)
     const [deleteId, setDeleteId] = useState(null);
+    const [editCommentId,setEdiCommentId]=useState(null);
 
     const [editableContant, setEditableContent] = useState("")
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
@@ -30,16 +30,7 @@ function Comments({ refreshComments, setRefreshComments }) {
         return new Date(date).toLocaleDateString();
     }
 
-    useEffect(() => {
-        if (deleteSuccess) {
-            const timer = setTimeout(() => {
-                setDeleteSuccess(false);
-            }, 2000);
-
-            return () => clearTimeout(timer);
-        }
-    }, [deleteSuccess]);
-
+   
     async function handleDelete(_id) {
         try {
             await axios.delete(`${BACKEND_URL}/api/comment/delete-comment/${_id}`)
@@ -74,6 +65,8 @@ function Comments({ refreshComments, setRefreshComments }) {
                     isEdit={isEdit}
                     editContent={editableContant}
                     setRefreshComments={setRefreshComments}
+                    editCommentId={editCommentId}
+                    setisEdit={setisEdit}
                 />
             }
 
@@ -110,6 +103,8 @@ function Comments({ refreshComments, setRefreshComments }) {
                                         onClick={() => {
                                             setisEdit(true);
                                             setEditableContent(comment.content);
+                                            setEdiCommentId(comment._id)
+                                            
                                         }}
                                     >
                                         Edit

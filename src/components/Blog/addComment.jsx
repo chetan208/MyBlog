@@ -3,7 +3,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 
-function AddComment({number=0,isEdit,editContent="",setRefreshComments}) {
+function AddComment({number=0,isEdit,editContent="",setRefreshComments,editCommentId,setisEdit}) {
 
     const [content, setcontent] = useState("")
     const [loading, setloading] = useState(false)
@@ -12,7 +12,7 @@ function AddComment({number=0,isEdit,editContent="",setRefreshComments}) {
     const { id } = useParams()
 
   
-
+   
     useEffect(()=>{
         setcontent(editContent)
     },[editContent])
@@ -31,13 +31,30 @@ function AddComment({number=0,isEdit,editContent="",setRefreshComments}) {
                 content
             }, { withCredentials: true })
             setcontent("")
+            
             setRefreshComments(prev=>!prev)
             setloading(false)
         } catch (error) {
             console.log("error in adding comment", error)
         }
     }
+ 
+    async function editComment(){
+        setloading(true)
+        try {
+            await axios.patch(`${BACKEND_URL}/api/comment/edit-comment/${editCommentId}`, {
+                content
+            }, { withCredentials: true })
+            setcontent("")
+            setisEdit(false)
+            setRefreshComments(prev=>!prev)
+            setloading(false)
+        } catch (error) {
+            console.log("error in editing comment", error)
+             setloading(false)
+        }
 
+    }
     return (
         <>
         <h2 className="text-lg font-semibold mb-3">Comments({number})</h2>
@@ -58,7 +75,7 @@ function AddComment({number=0,isEdit,editContent="",setRefreshComments}) {
                         : "bg-blue-600 hover:bg-blue-700 active:scale-99"
                     }
   `}
-                onClick={postComment}
+                onClick={isEdit? editComment:postComment}
             >
                 {loading ? (
                     <>
