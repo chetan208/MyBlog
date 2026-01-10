@@ -11,8 +11,7 @@ function Comments({ refreshComments, setRefreshComments }) {
     const [deleteOpen, setDeleteOpen] = useState(false)
     const [isEdit, setisEdit] = useState(false)
     const [deleteId, setDeleteId] = useState(null);
-    const [editCommentId,setEdiCommentId]=useState(null);
-
+    const [editCommentId, setEdiCommentId] = useState(null);
     const [editableContant, setEditableContent] = useState("")
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
@@ -30,7 +29,7 @@ function Comments({ refreshComments, setRefreshComments }) {
         return new Date(date).toLocaleDateString();
     }
 
-   
+
     async function handleDelete(_id) {
         try {
             await axios.delete(`${BACKEND_URL}/api/comment/delete-comment/${_id}`)
@@ -42,6 +41,25 @@ function Comments({ refreshComments, setRefreshComments }) {
         }
 
     }
+
+    async function editComment() {
+
+        
+        try {
+            await axios.patch(`${BACKEND_URL}/api/comment/edit-comment/${editCommentId}`, {
+                content: editableContant
+            }, { withCredentials: true })
+            setEditableContent("")
+            setisEdit(false)
+            setRefreshComments(prev => !prev)
+
+        } catch (error) {
+            console.log("error in editing comment", error)
+
+        }
+
+    }
+
     useEffect(() => {
 
         const Getcomments = async () => {
@@ -104,7 +122,7 @@ function Comments({ refreshComments, setRefreshComments }) {
                                             setisEdit(true);
                                             setEditableContent(comment.content);
                                             setEdiCommentId(comment._id)
-                                            
+
                                         }}
                                     >
                                         Edit
@@ -148,13 +166,53 @@ function Comments({ refreshComments, setRefreshComments }) {
                                 </div>
                             </Popup>
 
+                            {/* edit*/}
+                            <Popup
+                                open={isEdit}
+                                onClose={() => setisEdit(false)}
+                                title="Edit Comment"
+                                width="400px"
+                            >
+                                <div className="space-y-4">
+
+                                    <input
+                                        value={editableContant}
+                                        onChange={(e) => setEditableContent(e.target.value)}
+                                        placeholder="Edit your comment..."
+                                        className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm 
+                 focus:outline-none focus:ring-2 focus:ring-blue-500 
+                 focus:border-blue-500 transition"
+                                    />
+
+                                    <div className="flex justify-end gap-3 pt-2">
+                                        <button
+                                            onClick={() => setisEdit(false)}
+                                            className="px-5 py-2.5 rounded-xl bg-gray-100 text-gray-700 
+                   hover:bg-gray-200 transition font-medium"
+                                        >
+                                            Cancel
+                                        </button>
+
+                                        <button
+                                            onClick={editComment}
+                                           className="px-5 py-2.5 rounded-xl bg-teal-600 text-white 
+           hover:bg-teal-700 transition font-medium shadow-md"
+                                        >
+                                            Save Changes
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </Popup>
+
+
 
 
                         </div>
                     </div>
 
                 ))}
-               
+
             </div>
 
         </>

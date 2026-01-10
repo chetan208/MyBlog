@@ -39,22 +39,7 @@ function AddComment({number=0,isEdit,editContent="",setRefreshComments,editComme
         }
     }
  
-    async function editComment(){
-        setloading(true)
-        try {
-            await axios.patch(`${BACKEND_URL}/api/comment/edit-comment/${editCommentId}`, {
-                content
-            }, { withCredentials: true })
-            setcontent("")
-            setisEdit(false)
-            setRefreshComments(prev=>!prev)
-            setloading(false)
-        } catch (error) {
-            console.log("error in editing comment", error)
-             setloading(false)
-        }
-
-    }
+   
     return (
         <>
         <h2 className="text-lg font-semibold mb-3">Comments({number})</h2>
@@ -75,7 +60,7 @@ function AddComment({number=0,isEdit,editContent="",setRefreshComments,editComme
                         : "bg-blue-600 hover:bg-blue-700 active:scale-99"
                     }
   `}
-                onClick={isEdit? editComment:postComment}
+                onClick={postComment}
             >
                 {loading ? (
                     <>
@@ -83,7 +68,7 @@ function AddComment({number=0,isEdit,editContent="",setRefreshComments,editComme
 
                         <div className=" flex justify-center w-full" >
                             <div className="mr-1" ><span className="w-5 h-5 border-2 cursor-not-allowed border-white border-t-transparent rounded-full animate-spin inline-block"></span></div>
-                            <p>{isEdit? "Saving..." : "Posting..."}</p>
+                            <p> "Posting..."</p>
                         </div>
 
                     </>
