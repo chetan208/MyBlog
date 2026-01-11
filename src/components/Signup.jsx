@@ -13,54 +13,48 @@ function Signup({
   const { register, handleSubmit, watch, reset } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [profile, setProfile] = useState('')
-  const [showPreview, setShowPreview] = useState(false);
+  const [error,seterror]=useState("")
   const [loading, setLoading] = useState(false);
 
   const name = watch("name")
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+  
 
   const handleSignin = async (data) => {
     try {
       setLoading(true);
-      const formData = new FormData();
+      
+      
+      const signupRes = await axios.post(`${BACKEND_URL}/api/signup`,{
+        email:data.email,
+        password:data.password,
+        
+      })
 
-      formData.append("fullName", data.name);
-      formData.append("email", data.email);
-      formData.append("password", data.password);
-      formData.append("avatar", profile);
-
-      const signupRes = await axios.post(
-        `${BACKEND_URL}/api/signup`,
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
-
-      if (signupRes.data.success) {
-        const loginRes = await axios.post(
-          `${BACKEND_URL}/api/login`,
-          { email: data.email, password: data.password },
-          { withCredentials: true }
-        );
-
-        if (loginRes.data.success) {
-          checkAuth(dispatch);
-          navigate("/");
-        }
+      if(signupRes.data.message==="email registered already"){
+        seterror(signupRes.data.message)
+        return;
       }
+      navigate(`verify-account/${data.email}`)
+
+      reset();
+
     } catch (err) {
-      console.error("Error during signup/login:", err);
+      console.error("Error during signup:", err);
     } finally {
       setLoading(false);
-      reset();
     }
   };
+
+  setTimeout(() => {
+        seterror("");
+    }, 3000)
 
   return (
     <div className={`${className}`}>
       <form onSubmit={handleSubmit(handleSignin)}>
 
-        <div>
+        {/* <div>
           <Input
             label="Full Name:"
             name="name"
@@ -69,7 +63,7 @@ function Signup({
             className="mt-1 dark:bg-gray-800 dark:text-white dark:border-gray-700"
             {...register("name", { required: true })}
           />
-        </div>
+        </div> */}
 
         <div className="mb-3">
           <Input
@@ -77,6 +71,7 @@ function Signup({
             placeholder="Enter your Email"
             type="email"
             className="mt-1 dark:bg-gray-800 dark:text-white dark:border-gray-700"
+            error={error}
             {...register("email", {
               required: true,
               validate: {
@@ -98,7 +93,7 @@ function Signup({
           />
         </div>
 
-        <div className="flex flex-col items-start space-y-2 mt-2">
+        {/* <div className="flex flex-col items-start space-y-2 mt-2">
           <label className="cursor-pointer px-5 py-2 rounded-lg 
               bg-teal-500 text-white font-semibold shadow-md
               hover:bg-teal-600 transition-colors duration-300
@@ -160,7 +155,7 @@ function Signup({
               </div>
             </div>
           )}
-        </div>
+        </div> */}
 
         <div className="mt-2">
           <p className="dark:text-gray-300">
@@ -185,10 +180,10 @@ function Signup({
           {loading ? (
             <>
               <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-              Processing...
+              Please wait...
             </>
           ) : (
-            "Sign Up"
+            "Next"
           )}
         </button>
 
