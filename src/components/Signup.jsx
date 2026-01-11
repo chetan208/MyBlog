@@ -7,9 +7,6 @@ import checkAuth from "../services/auth/checkAuth";
 import { login } from "../store/authslice";
 import { useDispatch } from "react-redux";
 
-
-
-
 function Signup({
   className = ""
 }) {
@@ -20,60 +17,36 @@ function Signup({
   const [showPreview, setShowPreview] = useState(false);
   const [loading, setLoading] = useState(false);
 
-
   const name = watch("name")
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-
-
   const handleSignin = async (data) => {
     try {
-      // Signup request
       setLoading(true);
       const formData = new FormData();
 
       formData.append("fullName", data.name);
       formData.append("email", data.email);
       formData.append("password", data.password);
-      formData.append("avatar", profile); // file object
+      formData.append("avatar", profile);
 
-
-      const signupRes = await axios.post(`${BACKEND_URL}/api/signup`,
+      const signupRes = await axios.post(
+        `${BACKEND_URL}/api/signup`,
         formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
 
-
-
       if (signupRes.data.success) {
-        // Login request after successful signup
         const loginRes = await axios.post(
           `${BACKEND_URL}/api/login`,
-          {
-            email: data.email,
-            password: data.password,
-          },
+          { email: data.email, password: data.password },
           { withCredentials: true }
         );
 
         if (loginRes.data.success) {
-          // Update Redux state
           checkAuth(dispatch);
-
-          // Navigate to home
           navigate("/");
-
-          // Optional: full page reload
-          // window.location.reload();
-        } else {
-          console.log("Login failed after signup");
         }
-      } else {
-        console.log("Signup failed");
       }
     } catch (err) {
       console.error("Error during signup/login:", err);
@@ -85,8 +58,7 @@ function Signup({
 
   return (
     <div className={`${className}`}>
-      <form onSubmit={handleSubmit(handleSignin)} >
-
+      <form onSubmit={handleSubmit(handleSignin)}>
 
         <div>
           <Input
@@ -94,11 +66,9 @@ function Signup({
             name="name"
             placeholder="Enter your Full Name"
             type="text"
-            className="mt-1"
-            {...register("name", {
-              required: true,
-            })}
-          ></Input>
+            className="mt-1 dark:bg-gray-800 dark:text-white dark:border-gray-700"
+            {...register("name", { required: true })}
+          />
         </div>
 
         <div className="mb-3">
@@ -106,12 +76,12 @@ function Signup({
             label="Email:"
             placeholder="Enter your Email"
             type="email"
-
-            className="mt-1"
+            className="mt-1 dark:bg-gray-800 dark:text-white dark:border-gray-700"
             {...register("email", {
               required: true,
               validate: {
-                matchPatern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
+                matchPatern: (value) =>
+                  /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
                   "Email address must be a valid address",
               }
             })}
@@ -123,19 +93,17 @@ function Signup({
             label="Password:"
             placeholder="Enter your Password"
             type="text"
-
-            className="mt-1"
-            {...register("password", {
-              required: true,
-            })}
+            className="mt-1 dark:bg-gray-800 dark:text-white dark:border-gray-700"
+            {...register("password", { required: true })}
           />
         </div>
 
         <div className="flex flex-col items-start space-y-2 mt-2">
           <label className="cursor-pointer px-5 py-2 rounded-lg 
               bg-teal-500 text-white font-semibold shadow-md
-              hover:bg-teal-600 transition-colors duration-300">
-            {profile ? "Upload Profile Picture" : "Upload Profile Picture"} {/* Always same text */}
+              hover:bg-teal-600 transition-colors duration-300
+              dark:bg-teal-600 dark:hover:bg-teal-700">
+            Upload Profile Picture
             <input
               type="file"
               className="hidden"
@@ -145,23 +113,23 @@ function Signup({
           </label>
 
           {!profile && (
-            <span className="text-gray-700 text-sm">No file chosen</span>
+            <span className="text-gray-700 text-sm dark:text-gray-400">
+              No file chosen
+            </span>
           )}
 
           {profile && (
             <div className="flex items-center space-x-4 mt-2">
-              {/* Preview */}
               <img
                 src={URL.createObjectURL(profile)}
                 alt="preview"
-                className="w-20 h-20 rounded-full object-cover border-2 border-gray-300 cursor-pointer"
+                className="w-20 h-20 rounded-full object-cover border-2 border-gray-300 cursor-pointer dark:border-gray-600"
                 onClick={() => setShowPreview(true)}
               />
 
-              {/* Only this Change Button will show */}
               <button
                 type="button"
-                className="cursor-pointer px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-300"
+                className="cursor-pointer px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-300 dark:bg-blue-600 dark:hover:bg-blue-700"
                 onClick={() => document.querySelector('input[name="profile"]').click()}
               >
                 Change
@@ -171,23 +139,19 @@ function Signup({
 
           {showPreview && (
             <div className="fixed inset-0 z-50 flex items-center justify-center">
-              {/* Blurred Background */}
               <div
                 className="absolute inset-0 bg-black/40 backdrop-blur-sm"
                 onClick={() => setShowPreview(false)}
               ></div>
 
-              {/* Image Wrapper */}
               <div className="relative">
-                {/* Cross Button */}
                 <button
                   onClick={() => setShowPreview(false)}
-                  className="absolute -top-3 -right-3 bg-white text-black w-8 h-8 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-200"
+                  className="absolute -top-3 -right-3 bg-white text-black w-8 h-8 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                 >
                   ✕
                 </button>
 
-                {/* Big Image */}
                 <img
                   src={URL.createObjectURL(profile)}
                   alt="Big Preview"
@@ -198,35 +162,28 @@ function Signup({
           )}
         </div>
 
-
-
-
-
-
         <div className="mt-2">
-          <p>
-            Already have an account?  <Link to="/login" className="text-blue-500">Log in</Link>
+          <p className="dark:text-gray-300">
+            Already have an account?{" "}
+            <Link to="/login" className="text-blue-500 dark:text-blue-400">
+              Log in
+            </Link>
           </p>
-
         </div>
 
         <button
           type="submit"
           disabled={loading}
           className={`
-
-               w-35 py-2 rounded-lg font-semibold  text-white
-               flex items-center justify-center gap-2 mt-2
-              
-
-    ${loading
-              ? "bg-blue-400 cursor-not-allowed"
-              : "bg-blue-500 hover:bg-blue-600 cursor-pointer active:scale-98"}
-  `}
+            w-35 py-2 rounded-lg font-semibold text-white
+            flex items-center justify-center gap-2 mt-2
+            ${loading
+              ? "bg-blue-400 cursor-not-allowed dark:bg-blue-500"
+              : "bg-blue-500 hover:bg-blue-600 cursor-pointer active:scale-98 dark:bg-blue-600 dark:hover:bg-blue-700"}
+          `}
         >
           {loading ? (
             <>
-              {/* Spinner */}
               <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
               Processing...
             </>
@@ -237,11 +194,7 @@ function Signup({
 
       </form>
     </div>
-  )
+  );
+}
 
-};
-
-
-
-
-export default Signup
+export default Signup;

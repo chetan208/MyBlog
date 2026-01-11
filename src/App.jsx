@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import checkAuth from './services/auth/checkAuth';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { ThemeProvider } from "./components/theme-provider"
 
 
 
@@ -25,14 +26,17 @@ function App() {
   
 
   return (
-    <>
+    
+      
+       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div>
         <Header />
         <ScrollToTop/>
         <Outlet />
         <Footer />
       </div>
-    </>
+    </ThemeProvider>
+    
   )
 }
 

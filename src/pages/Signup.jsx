@@ -1,34 +1,65 @@
 import React from 'react'
-import { Signup as SignupComponent, Header } from '../components'
+import { Signup as SignupComponent } from '../components'
 import login from '../assets/login.png'
+
 function Signup() {
   return (
     <div
-      className='h-screen'
-
+      className="
+        min-h-screen flex items-center justify-center
+        bg-gray-50 dark:bg-gray-900
+        px-4
+      "
     >
-      {/* <Header /> */}
+      {/* MAIN CARD */}
+      <div
+        className="
+          w-full max-w-5xl
+          min-h-[85vh]
+          flex flex-col md:flex-row
+          rounded-2xl overflow-hidden
+          bg-white dark:bg-gray-800
+          shadow-2xl dark:shadow-black/50
+        "
+      >
+        {/* IMAGE SECTION */}
+        <div
+          className="
+            w-full md:w-1/2
+            min-h-[280px] md:min-h-full
+            flex items-center justify-center
+            bg-center bg-contain bg-no-repeat
+            dark:opacity-90
+          "
+          style={{ backgroundImage: `url(${login})` }}
+        />
 
-      <div 
-      className='lg:h-[80%] w-full flex items-center justify-center
-       lg:gap-9 flex-col-reverse gap-0 sm:flex-col-reverse md:flex-row-reverse
-        lg:flex-row-reverse  overflow-hidden  lg:py-5  sm:px-10 md:px-10 lg:px-30 mt-2 ' >
+        {/* FORM SECTION */}
+        <div
+          className="
+            w-full md:w-1/2
+            flex items-center justify-center
+            py-10 md:py-0
+          "
+        >
+          <div
+            className="
+              w-full
+              max-w-sm
+              px-6 md:px-8
+              flex flex-col justify-center
+            "
+          >
+            <h1 className="text-3xl font-bold mb-6 dark:text-gray-100">
+              Sign Up with Your Email
+            </h1>
 
-        <div className='w-80 sm:w-100 md:w-80 lg:w-100 px-10 h-full flex flex-col justify-center  shrink-0 '>
-          <div><h1 className="text-3xl font-bold mt-5">Sign Up  with Your Email</h1></div>
-          < SignupComponent className="mt-4 w-auto" />
+            <SignupComponent />
+          </div>
         </div>
-
-        <div className="lg:w-120 md:w-100  bg-cover bg-center flex justify-center  items-center mb-5">
-                    <div className='h-70 w-80 lg:h-120 md:h-120 md:w-140 lg:w-150 sm:h-70 sm:w-100 bg-center bg-cover'
-                    style = {{ backgroundImage: `url(${ login })` }}>
-                    </div>
-                 </div>
-
-        
-
       </div>
-    </div >)
+    </div>
+  )
 }
 
 export default Signup

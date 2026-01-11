@@ -7,11 +7,11 @@ import { Provider } from "react-redux";
 import  store  from "./store/store.js";
 import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
-
 import { AddBlog, ViewBlog,About } from './components/index.js';
 import Home from './pages/Home.jsx'
 import Protected from './protect.jsx';
 import EditBlog from './components/Blog/EditBlog.jsx';
+import BlogExplorer from './pages/BlogExplore.jsx';
 
 const router= createBrowserRouter([
   {
@@ -29,6 +29,7 @@ const router= createBrowserRouter([
 
       { path:"/about", element:( <About/>) },
 
+      {path:"/blogs",element:(<BlogExplorer/>)},
        // Protected routes
       {
         element: <Protected />, // <-- wraps all protected routes

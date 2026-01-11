@@ -5,6 +5,7 @@ import { FaUserCircle } from "react-icons/fa";
 
 import HamburgerMenu from "./Hamberger";
 import DesktopNavItems from "./DesktopNavItems";
+import ModeToggle from "../Mode-toggle";
 
 function Header() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ function Header() {
   const user = useSelector((state) => state.auth.userData);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
+    <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm">
       <div className="max-w-7xl mx-auto px-4">
         
         {/* MAIN ROW */}
@@ -28,14 +29,12 @@ function Header() {
             {/* Logo */}
             <h1
               onClick={() => navigate("/")}
-              className="text-xl font-bold text-blue-600 cursor-pointer 
+              className="text-xl font-bold text-blue-600 dark:text-blue-400 cursor-pointer 
               flex items-center h-10"
             >
               BlogIt
             </h1>
           </div>
-
-          
 
           {/* RIGHT SECTION */}
           <div className="flex items-center gap-4 h-10">
@@ -45,6 +44,7 @@ function Header() {
             </div>
 
             {/* Profile Icon */}
+            <ModeToggle/>
             <div
               onClick={() => navigate(status ? "/settings" : "/login")}
               className="cursor-pointer flex items-center justify-center h-10 w-10 md:hidden"
@@ -56,9 +56,10 @@ function Header() {
                   className="w-9 h-9 rounded-full object-cover"
                 />
               ) : (
-                <FaUserCircle className="text-3xl text-gray-600 hover:text-black transition" />
+                <FaUserCircle className="text-3xl text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition" />
               )}
             </div>
+
           </div>
 
         </div>
