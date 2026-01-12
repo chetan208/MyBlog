@@ -1,6 +1,9 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Vortex } from "../components/ui/vortex";
+
+import {Spotlight} from '../components/ui/spotlight'
+
+import{BackgroundBeams} from "../components/ui/background-beams"
 
 export default function Hero() {
   const navigate = useNavigate();
@@ -8,12 +11,20 @@ export default function Hero() {
   const authStatus = useSelector((state) => state.auth.status);
 
   return (
+
+    <>
+    <Spotlight
+        className="-top-40 left-0 md:-top-20 md:left-60"
+        fill="white"
+      />
+    
     <div className="
       min-h-screen 
       bg-gray-300 dark:bg-[#0b0f19]
       flex items-center justify-center 
       px-4
     ">
+      
      
         {/* FULL CENTER WRAPPER */}
         <div className="h-full flex items-center justify-center">
@@ -67,7 +78,7 @@ export default function Hero() {
             <div className="mt-12 flex justify-center">
               <button
                 onClick={() =>
-                  authStatus ? navigate("/add-blog") : navigate("/login")
+                  authStatus ? navigate("/add-blog") : navigate("/user/login")
                 }
                 className="
                   px-12 py-4 rounded-full
@@ -89,6 +100,10 @@ export default function Hero() {
 
         </div>
       
+     <BackgroundBeams />
+    
     </div>
+    
+    </>
   );
 }

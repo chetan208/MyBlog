@@ -56,8 +56,8 @@ export default function DesktopNavItems(){
                             <ProfileMenu />
                         ):(
                             <>
-                        <button className="text-blue-600 dark:text-blue-400 cursor-pointer" onClick={()=>navigate("/login")} >Login</button>
-                        <button className="bg-blue-600 dark:bg-blue-500 text-white px-3 py-1 rounded cursor-pointer" onClick={()=>navigate("/signup")} >
+                        <button className="text-blue-600 dark:text-blue-400 cursor-pointer" onClick={()=>navigate("/user/login")} >Login</button>
+                        <button className="bg-blue-600 dark:bg-blue-500 text-white px-3 py-1 rounded cursor-pointer" onClick={()=>navigate("/user/signup")} >
                             Sign Up
                         </button>
                         </>

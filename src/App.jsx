@@ -1,6 +1,5 @@
 
-import Login from './pages/Login'
-import Signup from './pages/Signup'
+
 import { Header,Footer,ScrollToTop,About} from './components'
 import { Outlet } from "react-router-dom";
 import { useEffect } from 'react';
@@ -14,6 +13,12 @@ import { ThemeProvider } from "./components/theme-provider"
 
 
 function App() {
+  window.addEventListener('load', () => {
+    // 50ms delay ensures all images/fonts are loaded
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+    }, 5);
+});
  
   const dispatch = useDispatch()
 
@@ -23,7 +28,7 @@ function App() {
 
   }, [])
 
-  
+
 
   return (
     

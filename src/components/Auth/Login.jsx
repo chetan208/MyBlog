@@ -1,10 +1,10 @@
 import React from "react";
-import { Input, Button } from "./index"
+import { Input, Button } from "../index"
 import { useForm } from 'react-hook-form';
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import checkAuth from "../services/auth/checkAuth";
+import checkAuth from "../../services/auth/checkAuth";
 import { useState } from "react";
 
 function Login({
@@ -83,7 +83,7 @@ function Login({
                 <div className="mt-2">
                     <p className="text-gray-700 dark:text-gray-300">
                         Don't have an account?{" "}
-                        <Link to="/signup" className="text-blue-500 dark:text-blue-400">
+                        <Link to="/user/signup" className="text-blue-500 dark:text-blue-400">
                             Sign up
                         </Link>
                     </p>

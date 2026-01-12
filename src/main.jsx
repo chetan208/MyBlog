@@ -5,15 +5,19 @@ import App from './App.jsx'
 import { BrowserRouter, createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
-import Login from './pages/Login.jsx';
-import Signup from './pages/Signup.jsx';
+
+
 import { AddBlog, ViewBlog, About } from './components/index.js';
 import Home from './pages/Home.jsx'
 import Protected from './protect.jsx';
 import EditBlog from './components/Blog/EditBlog.jsx';
 import BlogExplorer from './pages/BlogExplore.jsx';
-import VerifyEmail from './pages/verifyImage.jsx';
-import SetupProfile from './pages/SetUpProfile.jsx';
+import VerifyEmail from './components/Auth/VerifyEmail.jsx';
+
+import AuthPage from './pages/AuthPage.jsx';
+import LoginForm from './components/Auth/LoginForm.jsx';
+import Setup from './components/Auth/Setup.jsx';
+import SignupForm from './components/Auth/SignupForm.jsx';
 
 const router = createBrowserRouter([
   {
@@ -23,16 +27,23 @@ const router = createBrowserRouter([
 
       { path: "/", element: (<Home />) },
 
-      { path: "/login", element: (<Login />) },
+    
+
+     
 
       {
-        path: "/signup",
-        element: (<Signup />),
-
+        path:'/user',
+        element:<AuthPage/>,
+        children:[
+          {path:'signup',element:(<SignupForm/>)},
+          {path:'login',element:(<LoginForm/>)},
+          {path:'verify/:email',element:(<VerifyEmail/>)},
+          {path:'setup/:email',element:(<Setup/>)}
+        ]
       },
 
-      { path: '/signup/verify-account/:email', element: (<VerifyEmail />) },
-      {path:'/setup-profile/:email',element:(<SetupProfile/>)},
+
+      
       { path: "blog/:id", element: (<ViewBlog />) },
 
       { path: "/about", element: (<About />) },

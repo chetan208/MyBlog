@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Input, Button } from "./index"
+import { Input, Button } from "../index"
 import { useForm } from 'react-hook-form';
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import checkAuth from "../services/auth/checkAuth";
-import { login } from "../store/authslice";
+import checkAuth from "../../services/auth/checkAuth";
+import { login } from "../../store/authslice";
 import { useDispatch } from "react-redux";
 
 function Signup({
@@ -35,7 +35,7 @@ function Signup({
         seterror(signupRes.data.message)
         return;
       }
-      navigate(`verify-account/${data.email}`)
+      navigate(`/user/verify/${data.email}`)
 
       reset();
 
@@ -160,7 +160,7 @@ function Signup({
         <div className="mt-2">
           <p className="dark:text-gray-300">
             Already have an account?{" "}
-            <Link to="/login" className="text-blue-500 dark:text-blue-400">
+            <Link to="/user/login" className="text-blue-500 dark:text-blue-400">
               Log in
             </Link>
           </p>

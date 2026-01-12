@@ -31,8 +31,8 @@ export default function Sidebar({ menuOpen, setMenuOpen }) {
     { path: "/", name: "Contact", icon: MdOutlineConnectWithoutContact },
     { path: "/", name: "Settings", icon: IoSettingsOutline, authentication: true },
     { path: "/", name: "Logout", icon: BiLogOut, authentication: true },
-    { name: "Login", path: "/login", icon: BiLogIn, authentication: false },
-    { name: "Sign Up", path: "/signup", icon: RiUserAddLine, authentication: false },
+    { name: "Login", path: "/user/login", icon: BiLogIn, authentication: false },
+    { name: "Sign Up", path: "/user/signup", icon: RiUserAddLine, authentication: false },
   ];
 
   return (
