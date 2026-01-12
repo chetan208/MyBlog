@@ -28,7 +28,6 @@ function Login({
             }, { withCredentials: true })
                 .then((res) => {
                     if (res.data.success) {
-                        console.log("login ho gya hai")
                         checkAuth(dispatch)
                         navigate("/")
                     };

@@ -3,7 +3,7 @@ import setupProfileImg from "../assets/login.png";
 import { CiEdit } from "react-icons/ci";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-
+import { useDispatch } from "react-redux";
 
 
 function SetupProfile() {
@@ -14,6 +14,7 @@ function SetupProfile() {
   const [showPreview, setShowPreview] = useState(false);
   const [profilePic,setProfilePic] = useState(null)
 
+  const dispatch = useDispatch();
   const fileInputRef = useRef(null);
   const navigate=useNavigate()
   const {email} = useParams()
@@ -36,6 +37,8 @@ function SetupProfile() {
        const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
        const res = await axios.post(`${BACKEND_URL}/api/setup-profile`,formData)
        console.log(res.data.message)
+
+       
        navigate("/")
        setLoading(false)
     } catch (error) {
