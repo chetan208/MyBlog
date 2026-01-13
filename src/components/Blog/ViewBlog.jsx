@@ -110,12 +110,12 @@ export default function ViewBlog() {
 
   return (
     <>
-      <div className="bg-gray-100 dark:bg-gray-900 min-h-screen px-4 py-6">
+      <div className=" min-h-screen px-4 py-6">
 
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
 
           {/* LEFT : BLOG CONTENT */}
-          <div className="lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-900/50 overflow-hidden">
+          <div className="lg:col-span-2 bg-gray-200 dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-900/50 overflow-hidden">
 
             {/* Cover */}
             <div className="w-full h-80 md:h-96 lg:h-[30rem] overflow-hidden rounded-t-xl dark:bg-gray-900 dark:border-2 ">
@@ -161,7 +161,7 @@ export default function ViewBlog() {
                   <div
                     className="absolute bottom-0 left-0 w-full h-28
         bg-linear-to-t
-        from-white dark:from-gray-800
+        dark:from-gray-800
         to-transparent"
                   />
                 )}
@@ -235,7 +235,7 @@ export default function ViewBlog() {
           {/* RIGHT : AUTHOR + COMMENTS */}
           <div className="lg:col-span-1">
             {/* Sticky Sidebar */}
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg dark:shadow-gray-900/50 p-6 flex flex-col gap-6 lg:sticky lg:top-18 max-h-[calc(100vh-2.5rem)]">
+            <div className="bg-gray-200 dark:bg-gray-800 rounded-2xl shadow-lg dark:shadow-gray-900/50 p-6 flex flex-col gap-6 lg:sticky lg:top-18 max-h-[calc(100vh-2.5rem)]">
 
               {/* AUTHOR CARD */}
               <div className="flex items-center gap-4">

@@ -8,7 +8,7 @@ import checkAuth from "../../services/auth/checkAuth";
 
 function Setup() {
 
-   const [fullName, setFullName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [bio, setBio] = useState("");
   const [profilePicUrl, setProfilePicUrl] = useState(null);
   const [loading, setLoading] = useState(false);

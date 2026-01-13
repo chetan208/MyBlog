@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import {Spotlight} from '../components/ui/spotlight'
+import { HoverBorderGradient } from "../components/ui/hover-border-gradient";
 
 import{BackgroundBeams} from "../components/ui/background-beams"
 
@@ -75,12 +76,21 @@ export default function Hero() {
               🚧 Site under maintenance. Some features may be temporarily unavailable.
             </p>
 
+
+              
             <div className="mt-12 flex justify-center">
+              <HoverBorderGradient
+              containerClassName="rounded-full"
+               as="button"
+               duration={0.8}
+               className=" p-0 "
+              >
               <button
                 onClick={() =>
                   authStatus ? navigate("/add-blog") : navigate("/user/login")
                 }
                 className="
+              
                   px-12 py-4 rounded-full
                   bg-teal-500 
                   dark:bg-purple-600
@@ -91,16 +101,24 @@ export default function Hero() {
                   active:scale-95
                   transition-all duration-200
                   shadow-xl
+                  cursor-pointer
                 "
               >
                 {authStatus ? "Write a Blog" : "Login to Continue"}
+
               </button>
+              </HoverBorderGradient>
+
             </div>
+
+            
+
+
           </div>
 
         </div>
       
-     <BackgroundBeams />
+     <BackgroundBeams/>
     
     </div>
     

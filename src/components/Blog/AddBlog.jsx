@@ -71,7 +71,7 @@ window.addEventListener("resize", () => {
                     <div className="lg:col-span-2 space-y-5">
                         {/* Title */}
                         <div>
-                            <label className="block font-semibold mb-1 order-1 dark:text-gray-200">
+                            <label className="block font-semibold mb-1 order-1  dark:text-gray-200">
                                 Blog Title
                             </label>
                             <input
@@ -79,7 +79,7 @@ window.addEventListener("resize", () => {
                                 placeholder="Enter blog title"
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
-                                className="w-full border dark:border-gray-600 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500 dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-400"
+                                className="w-full border dark:border-gray-600 bg-gray-200 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500 dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-400"
                             />
                         </div>
 
@@ -88,7 +88,7 @@ window.addEventListener("resize", () => {
                             screenWidth < 1024 ? (
                                 <>
                                 <div
-                                    className="border-2 border-dashed dark:border-gray-600 rounded-lg p-4 text-center cursor-pointer
+                                    className="border-2 border-dashed border-gray-400 dark:border-gray-600 rounded-lg p-4 text-center cursor-pointer
                                     hover:border-blue-500 dark:hover:border-blue-400 transition order-2 lg:order-3"
                                     onDragOver={(e) => e.preventDefault()}
                                     onDrop={(e) => {
@@ -201,7 +201,7 @@ window.addEventListener("resize", () => {
                             screenWidth > 1024 ? (
                                
                                 <div
-                                    className="border-2 border-dashed dark:border-gray-600 rounded-lg p-4 text-center cursor-pointer
+                                    className="border-2 border-gray-400 border-dashed  dark:border-gray-600 rounded-lg p-4 text-center cursor-pointer
                          hover:border-blue-500 dark:hover:border-blue-400 transition order-2 lg:order-3"
                                     onDragOver={(e) => e.preventDefault()}
                                     onDrop={(e) => {
@@ -261,7 +261,7 @@ window.addEventListener("resize", () => {
 
 
                         {/* Tips */}
-                        <div className="border dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
+                        <div className="border dark:border-gray-600 rounded-lg p-4 bg-gray-200 dark:bg-gray-800">
                             <h2 className="font-semibold mb-2 dark:text-gray-200">
                                 Tips / Info
                             </h2>

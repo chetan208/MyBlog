@@ -3,6 +3,7 @@ import React, { useState, useEffect, use } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import BlogCard from './Blog/Card';
+import { SkeletonCard } from './Blog/SkeletonCard';
 
 
 
@@ -12,16 +13,20 @@ function ExploreBlogs() {
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
     const navigate = useNavigate();
     const [limit, setLimit] = useState(4);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
+                setLoading(true);
                 const res = await axios.get(`${BACKEND_URL}/api/blog/allblogs`);
                 if (res.data.success) {
                     setBlogs(res.data.blogs);
                 }
+                setLoading(false);
             } catch (error) {
                 console.log(error);
+
             }
         };
         fetchBlogs();
@@ -42,16 +47,18 @@ function ExploreBlogs() {
     const authStatus = useSelector((state) => (state.auth.status))
 
     return (
-        <div className="max-w-7xl mx-auto w-full flex flex-col items-center">
+        <div className="max-w-7xl mx-auto w-full flex flex-col items-center px-8 sm:px-2">
 
-            <h2 className="text-2xl self-start md:ml-12 ml-5 sm:text-3xl font-bold text-gray-800 dark:text-purple-300 mb-6">
+            <h2 className="text-3xl self-start md:ml-6 sm:text-4xl font-bold text-gray-800 dark:text-purple-300 mb-6">
                 Recent Blogs
             </h2>
             {/* Blog grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-2 mg:grid-cols-3 lg:grid-cols-3 gap-6 w-full lg:pl-12 md:pl-10 sm:pl-8 p-3">
+            <div className="grid grid-cols-2 sm:grid-cols-2 mg:grid-cols-3 lg:grid-cols-3 gap-4 sm:px-6 w-full">
 
-                {blogs.length === 0 ? (
-                    <h3 className="text-gray-800 dark:text-gray-200">Currently No Blog to View</h3>
+                {loading ? (
+                    Array.from({ length: limit }).map((_, i) => (
+                        <SkeletonCard key={i} className="rounded-full" />
+                    ))
                 ) : (
                     blogs
                         .slice(0, limit)
@@ -63,10 +70,10 @@ function ExploreBlogs() {
             </div>
 
             {/* Explore Button */}
-            <div className="flex self-start md:ml-12 ml-5 mt-10">
+            <div className="flex  self-start  md:ml-6  mt-5 md:mt-8">
                 <button
                     onClick={() => navigate("/blogs")}
-                    className="bg-teal-400 hover:bg-teal-500 text-gray-800 cursor-pointer  dark:bg-purple-400 dark:hover:bg-purple-500 dark:text-gray-100 font-bold py-2 px-6 rounded-full transition-colors duration-300"
+                    className="bg-teal-400 md:w-50 md:h-13 md:text-xl hover:bg-teal-500 text-gray-800 cursor-pointer  dark:bg-purple-600 dark:hover:bg-purple-700 dark:text-gray-100 font-bold py-2 px-6 rounded-full transition-colors duration-300"
                 >
                     Explore Blogs →
                 </button>

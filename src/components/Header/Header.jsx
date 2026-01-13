@@ -13,7 +13,7 @@ function Header() {
   const user = useSelector((state) => state.auth.userData);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 dark:bg-[#0B0F19] backdrop-blur-lg shadow-md">
+    <header className="sticky top-0 z-50 bg-gray-200 dark:bg-[#0B0F19] backdrop-blur-lg shadow-md">
       <div className="max-w-7xl mx-auto px-4">
         
         {/* MAIN ROW */}

@@ -30,7 +30,7 @@ export default function BlogCard({ blog }) {
         max-w-sm sm:max-w-xs md:max-w-sm lg:max-w-md
         rounded-md
         overflow-hidden
-        bg-gray-50 dark:bg-gray-800
+        bg-gray-200 dark:bg-gray-800
         shadow-md hover:shadow-lg
         transition-all
         cursor-pointer

@@ -23,7 +23,7 @@ export default function DesktopNavItems(){
 
                         <Link to="/" className="hover:text-blue-600 dark:hover:text-blue-400 dark:text-gray-200 text-gray-800">Home</Link>
 
-                        <div className="" >
+                        {/* <div className="" >
                             <DropDown
                             label="Categories"
                             options={[
@@ -37,7 +37,7 @@ export default function DesktopNavItems(){
                                 }
                             ]}
                             />
-                        </div>
+                        </div> */}
 
                         {status? (
                              <Link to="/add-blog"  className="hover:text-blue-600 dark:hover:text-blue-400 dark:text-gray-200 text-gray-800">Write</Link>
@@ -46,11 +46,11 @@ export default function DesktopNavItems(){
                         <Link onClick={handleAboutClick} className="hover:text-blue-600 dark:hover:text-blue-400 dark:text-gray-200 text-gray-800">About</Link>
                         <Link to="/contact" className="hover:text-blue-600 dark:hover:text-blue-400 dark:text-gray-200 text-gray-800">Contact</Link>
 
-                        <input
+                        {/* <input
                             type="text"
                             placeholder="Search..."
                             className="border rounded px-2 py-1 text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
-                        />
+                        /> */}
 
                         {status? (
                             <ProfileMenu />

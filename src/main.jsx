@@ -18,6 +18,7 @@ import AuthPage from './pages/AuthPage.jsx';
 import LoginForm from './components/Auth/LoginForm.jsx';
 import Setup from './components/Auth/Setup.jsx';
 import SignupForm from './components/Auth/SignupForm.jsx';
+import SettingsPage from './pages/Settings.jsx';
 
 const router = createBrowserRouter([
   {
@@ -54,7 +55,8 @@ const router = createBrowserRouter([
         element: <Protected />, // <-- wraps all protected routes
         children: [
           { path: '/add-blog', element: <AddBlog /> },
-          { path: '/edit-blog/:id', element: (<EditBlog />) }
+          { path: '/edit-blog/:id', element: (<EditBlog />) },
+          {path:'/settings',element: <SettingsPage/>}
         ],
       },
 

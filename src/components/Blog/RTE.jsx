@@ -1,61 +1,76 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 
 export default function RTE({ value, onChange, height }) {
+  const [isDark, setIsDark] = useState(false);
 
-    return (
-        <div className='border-2 border-gray-300 dark:border-gray-600 rounded-md'>
-            <Editor
-                apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
-                value={value}
-                onEditorChange={onChange}
-                init={{
-                    height: height,
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
 
-                    // Plugins
-                    plugins: [
-                        'anchor',
-                        'autolink',
-                        'charmap',
-                        'codesample',
-                        'emoticons',
-                        'link',
-                        'lists',
-                        'media',
-                        'searchreplace',
-                        'table',
-                        'visualblocks',
-                        'wordcount',
-                    ],
+    checkTheme();
 
-                    // Toolbar
-                    toolbar:
-                        "undo redo | forecolor backcolor | bold italic underline strikethrough | align lineheight | checklist numlist bullist indent outdent | blocks fontfamily fontsize | emoticons charmap | removeformat",
-                    toolbar_mode: 'sliding',
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
 
-                    // Dark mode skin
-                    skin: 'oxide-dark',          // Dark UI
-                    content_css: 'dark',         // Dark content background
+    return () => observer.disconnect();
+  }, []);
 
-                    // Optional: Tailwind styles inside editor
-                    content_style: `
-                        body { 
-                            @apply bg-gray-900 text-gray-100 dark:bg-gray-900 dark:text-gray-100;
-                        }
-                        p, h1, h2, h3, h4, h5, h6 { 
-                            @apply text-gray-100 dark:text-gray-100;
-                        }
-                        a { 
-                            @apply text-blue-500 dark:text-blue-400 underline;
-                        }
-                    `,
+  return (
+    <div className="border-2 border-gray-300 dark:border-gray-600 rounded-md">
+      <Editor
+        key={isDark ? 'dark-editor' : 'light-editor'}  // 🔥 MAGIC LINE
+        apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
+        value={value}
+        onEditorChange={onChange}
+        init={{
+          height,
 
-                    branding: false,
-                    promotion: false,
-                    menubar: false,
-                    statusbar: true,
-                }}
-            />
-        </div>
-    );
+          plugins: [
+            'anchor',
+            'autolink',
+            'charmap',
+            'codesample',
+            'emoticons',
+            'link',
+            'lists',
+            'media',
+            'searchreplace',
+            'table',
+            'visualblocks',
+            'wordcount',
+          ],
+
+          toolbar:
+            "undo redo | forecolor backcolor | bold italic underline strikethrough | align | numlist bullist | blocks fontfamily fontsize | emoticons charmap | removeformat",
+
+          toolbar_mode: 'sliding',
+
+          // theme switch
+          skin: isDark ? 'oxide-dark' : 'oxide',
+          content_css: isDark ? 'dark' : 'default',
+
+          content_style: `
+            body {
+              background-color: ${isDark ? '#1f2937' : '#e5e7eb'};
+              color: ${isDark ? '#e5e7eb' : '#111827'};
+              font-family: Inter, sans-serif;
+            },
+            a {
+    color: ${isDark ? '#60a5fa' : '#2563eb'};
+  }
+          `,
+
+          branding: false,
+          promotion: false,
+          menubar: false,
+          statusbar: true,
+        }}
+      />
+    </div>
+  );
 }

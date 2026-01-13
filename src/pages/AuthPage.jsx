@@ -1,13 +1,16 @@
 
 import login from '../assets/login.png'
 import { Outlet } from 'react-router-dom'
+import { HoverBorderGradient } from '../components/ui/hover-border-gradient'
 
 function AuthPage() {
   return (
+
     <div
       className="
         min-h-[90vh] flex items-center justify-center
-        bg-gray-50 dark:bg-gray-900
+     
+         dark:bg-[#0B0F19]
         px-4
       "
     >
@@ -18,7 +21,7 @@ function AuthPage() {
           min-h-[80vh]
           flex flex-col md:flex-row     /* 📱 mobile: column | 💻 desktop: row */
           rounded-2xl overflow-hidden
-          bg-white dark:bg-gray-800
+          bg-gray-200 dark:bg-gray-800
           shadow-2xl dark:shadow-black/50
         "
       >
@@ -41,7 +44,9 @@ function AuthPage() {
 
 
       </div>
+      
     </div>
+    
   )
 }
 
