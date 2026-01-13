@@ -29,7 +29,7 @@ export default function Sidebar({ menuOpen, setMenuOpen }) {
     { path: "/add-blog", name: "Write Blog", icon: TfiWrite, authentication: true },
     { path: "/about", name: "About", icon: FcAbout },
     { path: "/", name: "Contact", icon: MdOutlineConnectWithoutContact },
-    { path: "/", name: "Settings", icon: IoSettingsOutline, authentication: true },
+    { path: "/settings", name: "Settings", icon: IoSettingsOutline, authentication: true },
     { path: "/", name: "Logout", icon: BiLogOut, authentication: true },
     { name: "Login", path: "/user/login", icon: BiLogIn, authentication: false },
     { name: "Sign Up", path: "/user/signup", icon: RiUserAddLine, authentication: false },

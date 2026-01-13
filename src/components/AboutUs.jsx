@@ -35,9 +35,9 @@ export default function About() {
               About the Creator
             </h2>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              BlogIt was created by <span className="font-small  md:font-medium text-teal-600 dark:text-teal-400">Chetan</span>. 
-              It's a platform where users can freely share their experiences, stories, and ideas, 
-              and connect with a growing community of bloggers.
+               
+              BlogIt is built by <span className="font-small  md:font-medium text-teal-600 dark:text-teal-400">Chetan</span>, an Electrical Engineering student at NIT Hamirpur, with a passion for writing and technology.
+The platform allows users to freely express their thoughts, experiences, and stories while connecting with like-minded bloggers.
             </p>
           </div>
 

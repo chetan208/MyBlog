@@ -12,6 +12,7 @@ import Footer from "./Footer/Footer";
 import ScrollToTop from "./ScrollToTop";
 import About from "./AboutUs";
 import Popup from "./popUp";
+import ContactUs from "./ContactUs";
 
 export{
     Header,
@@ -27,5 +28,6 @@ export{
     Footer,
     ScrollToTop,
     About,
-    Popup
+    Popup,
+    ContactUs,
 }

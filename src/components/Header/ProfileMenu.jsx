@@ -7,6 +7,8 @@ import { logout as logoutAction } from "../../store/authslice";
 import logout from "../../services/auth/logout";
 import deleteAccount from "../../services/auth/deleteAccount";
 
+
+
 function ProfileMenu() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -34,6 +36,8 @@ function ProfileMenu() {
     };
   }, []);
 
+  const userId=useSelector((state) => state.auth.userData._id)
+
   return (
     <div className="relative" ref={menuRef}>
       {/* Profile button */}
@@ -60,7 +64,7 @@ function ProfileMenu() {
       {open && (
         <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow z-50">
           <button
-            onClick={() => navigate("/profile")}
+            onClick={() => navigate("/profile/"+userId)}
             className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-100"
           >
             My Profile
@@ -88,22 +92,6 @@ function ProfileMenu() {
             Logout
           </button>
 
-          <button
-            onClick={async (e) => {
-              e.stopPropagation();
-              try {
-                await deleteAccount(); // backend delete
-                dispatch(logoutAction()); // update redux state
-                setOpen(false); // dropdown close, optional
-                navigate("/");
-              } catch (err) {
-                console.error("Delete failed:", err);
-              }
-            }}
-            className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-red-500"
-          >
-            Delete
-          </button>
         </div>
       )}
     </div>

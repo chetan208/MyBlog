@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import store from "./store/store.js";
 
 
-import { AddBlog, ViewBlog, About } from './components/index.js';
+import { AddBlog, ViewBlog, About,ContactUs } from './components/index.js';
 import Home from './pages/Home.jsx'
 import Protected from './protect.jsx';
 import EditBlog from './components/Blog/EditBlog.jsx';
@@ -19,6 +19,9 @@ import LoginForm from './components/Auth/LoginForm.jsx';
 import Setup from './components/Auth/Setup.jsx';
 import SignupForm from './components/Auth/SignupForm.jsx';
 import SettingsPage from './pages/Settings.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
+
+
 
 const router = createBrowserRouter([
   {
@@ -32,7 +35,33 @@ const router = createBrowserRouter([
 
      
 
+      {path:'/profile/:id',element:<ProfilePage/>},
+
+
+      
+      { path: "blog/:id", element: (<ViewBlog />) },
+
+      { path: "/about", element: (<About />) },
+      { path: "/contact", element: (<ContactUs />) },
+
+      { path: "/blogs", element: (<BlogExplorer />) },
+      // Protected routes
       {
+        element: <Protected authentication={true} />, // <-- wraps all protected routes
+        children: [
+          { path: '/add-blog', element: <AddBlog /> },
+          { path: '/edit-blog/:id', element: (<EditBlog />) },
+          {path:'/settings',element: <SettingsPage/>},
+         
+          
+        ],
+      },
+
+      {
+        element: <Protected authentication={false} />, // <-- wraps all protected routes
+        children: [
+          
+           {
         path:'/user',
         element:<AuthPage/>,
         children:[
@@ -42,23 +71,8 @@ const router = createBrowserRouter([
           {path:'setup/:email',element:(<Setup/>)}
         ]
       },
-
-
-      
-      { path: "blog/:id", element: (<ViewBlog />) },
-
-      { path: "/about", element: (<About />) },
-
-      { path: "/blogs", element: (<BlogExplorer />) },
-      // Protected routes
-      {
-        element: <Protected />, // <-- wraps all protected routes
-        children: [
-          { path: '/add-blog', element: <AddBlog /> },
-          { path: '/edit-blog/:id', element: (<EditBlog />) },
-          {path:'/settings',element: <SettingsPage/>}
         ],
-      },
+      }
 
 
 

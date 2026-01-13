@@ -46,7 +46,7 @@ function Header() {
             {/* Profile Icon */}
             <ModeToggle/>
             <div
-              onClick={() => navigate(status ? "/settings" : "/login")}
+              onClick={() => navigate(status ? "/profile/"+user._id : "/login")}
               className="cursor-pointer flex items-center justify-center h-10 w-10 md:hidden"
             >
               {status && user ? (

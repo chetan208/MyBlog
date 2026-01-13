@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import Profile from "../components/Settings/Profile";
 import Account from "../components/Settings/Account";
 import Security from "../components/Settings/Security";
@@ -10,7 +10,12 @@ export default function SettingsPage() {
   
   const [mobileMenu, setMobileMenu] = useState(false);
   const [activeTab, setActiveTab] = useState("profile");
-  console.log(activeTab)
+  
+  useEffect(() => {
+    if(window.innerWidth < 768 && !mobileMenu){
+    setActiveTab(()=> "");
+  }
+  },[])
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-950 text-gray-900 dark:text-gray-100 md:flex">
@@ -82,10 +87,6 @@ export default function SettingsPage() {
 
         {activeTab === 'appearance' && (
          <Appearence />
-        )}
-
-        {activeTab === 'danger' && (
-         <Danger/>
         )}
       </main>
     </div>

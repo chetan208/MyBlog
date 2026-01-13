@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DOMPurify from "dompurify";
 import { SlLike } from "react-icons/sl";
 import { FaRegShareSquare } from "react-icons/fa";
@@ -31,6 +31,8 @@ export default function ViewBlog() {
   const [openShare, setOpenShare] = useState(false);
 
   const [expanded, setExpanded] = useState(false);
+
+  const navigate = useNavigate();
 
   const { id } = useParams();
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -238,14 +240,19 @@ export default function ViewBlog() {
             <div className="bg-gray-200 dark:bg-gray-800 rounded-2xl shadow-lg dark:shadow-gray-900/50 p-6 flex flex-col gap-6 lg:sticky lg:top-18 max-h-[calc(100vh-2.5rem)]">
 
               {/* AUTHOR CARD */}
-              <div className="flex items-center gap-4">
+              <div
+              
+               className="flex items-center gap-4">
                 <img
                   src={user.avatar?.url || ""}
                   alt="author"
-                  className="w-14 h-14 rounded-full object-cover border dark:border-gray-700"
+                  onClick={()=>navigate(`/profile/${user._id}`)}
+                  className="w-14 h-14 rounded-full object-cover border dark:border-gray-700 cursor-pointer"
                 />
                 <div>
-                  <p className="font-semibold text-gray-900 dark:text-gray-100">{user.fullName}</p>
+                  <p 
+                  onClick={()=>navigate(`/profile/${user._id}`)}
+                  className="font-semibold text-gray-900 dark:text-gray-100 cursor-pointer">{user.fullName}</p>
                 </div>
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400">{blog.discription}</p>
