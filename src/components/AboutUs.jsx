@@ -4,66 +4,127 @@ export default function About() {
   return (
     <div
       id="about"
-      className=" dark:bg-[#0B0F19]   py-4 px-6 sm:py-8 sm:px-6 md:py-20 md:px-8 lg:px-12 flex justify-center items-center min-h-screen"
+      className="
+        min-h-screen flex justify-center items-start
+       
+        px-3 py-8 sm:px-6 sm:py-16
+      "
     >
-      <div className="w-full max-w-305 h-[77vh] sm:h-[85vh] bg-gray-200 dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-none p-4 sm:p-6 md:p-8 lg:p-10
-                      flex flex-1 flex-col justify-between">
-
-        {/* Heading */}
-        <h1 className="text-center text-blue-600 dark:text-blue-400 font-extrabold "
-            style={{ fontSize: 'clamp(1.5rem, 2vw, 3rem)' }}>
+      <div
+        className="
+          w-full max-w-md sm:max-w-3xl lg:max-w-305
+          bg-gray-200 dark:bg-[#111827]
+          rounded-xl shadow-lg dark:shadow-none
+          px-4 py-6 sm:px-8 sm:py-10
+          space-y-6
+        "
+      >
+        {/* ================= HEADING ================= */}
+        <h1
+          className="
+            text-center text-2xl sm:text-3xl font-bold
+            text-blue-600 dark:text-blue-400
+          "
+        >
           About BlogIt
         </h1>
 
-        {/* Intro */}
-        <p className="text-gray-700 dark:text-gray-300 leading-relaxed md:mb-5 "
-           style={{ fontSize: 'clamp(1rem, 1.5vw, 1.25rem)' }}>
-          Welcome to <span className="font-semibold text-blue-500 dark:text-blue-400">BlogIt</span>!  
-          This is a community where everyone can share their thoughts, experiences, and stories. 
-          Discover posts from other users, learn from their perspectives, and contribute your own 
+        {/* ================= INTRO ================= */}
+        <p
+          className="
+            text-gray-700 dark:text-gray-300
+            text-sm sm:text-base
+            leading-relaxed
+            text-center sm:text-left
+          "
+        >
+          Welcome to{" "}
+          <span className="font-semibold text-blue-600 dark:text-blue-400">
+            BlogIt
+          </span>
+          . This is a community where everyone can share their thoughts,
+          experiences, and stories. Discover posts from other users,
+          learn from their perspectives, and contribute your own
           experiences to inspire others.
         </p>
 
-        <div className=" flex flex-col justify-between space-y-4 sm:space-y-6 md:space-y-8">
+        {/* ================= ABOUT CREATOR ================= */}
+        <div
+          className="
+            bg-gray-100 dark:bg-[#1F2937]
+            rounded-lg p-4 sm:p-6
+            border-l-4 border-teal-500
+          "
+        >
+          <h2
+            className="
+              text-lg font-semibold
+              text-gray-900 dark:text-gray-100
+              mb-2
+            "
+          >
+            About the Creator
+          </h2>
 
-          {/* About the Creator */}
-          <div className="flex-1 p-3 sm:p-4 md:p-6  bg-gray-100 dark:bg-gray-700 rounded-xl shadow-md dark:shadow-none border-l-4 border-teal-400 dark:border-teal-500 
-                          hover:shadow-xl dark:hover:shadow-none flex flex-col justify-center"
-               style={{ fontSize: 'clamp(0.9rem, 1.2vw, 1.3rem)' }}>
-            <h2 className="font-semibold text-gray-800 dark:text-gray-100 mb-2"
-                style={{ fontSize: 'clamp(1.3rem, 1.5vw, 1.5rem)' }}>
-              About the Creator
-            </h2>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-               
-              BlogIt is built by <span className="font-small  md:font-medium text-teal-600 dark:text-teal-400">Chetan</span>, an Electrical Engineering student at NIT Hamirpur, with a passion for writing and technology.
-The platform allows users to freely express their thoughts, experiences, and stories while connecting with like-minded bloggers.
-            </p>
-          </div>
-
-          {/* Why Explore the Blogs */}
-          <div className="flex-1 p-3 sm:p-4 md:p-6 bg-gray-100 dark:bg-gray-700 rounded-xl shadow-md dark:shadow-none border-l-4 border-blue-400 dark:border-blue-500 
-                          hover:shadow-xl dark:hover:shadow-none flex flex-col justify-center"
-               style={{ fontSize: 'clamp(0.9rem, 1.2vw, 1.3rem)' }}>
-            <h2 className="font-semibold text-gray-800 dark:text-gray-100 mb-2"
-                style={{ fontSize: 'clamp(1.3rem, 1.5vw, 1.5rem)' }}>
-              Why Explore the Blogs?
-            </h2>
-            <ul className="list-disc list-inside md:font-medium text-gray-700 dark:text-gray-300 space-y-1 sm:space-y-2 leading-relaxed">
-              <li>Discover experiences and stories shared by other users</li>
-              <li>Gain inspiration and learn from diverse perspectives</li>
-              <li>Enjoy a growing collection of insightful and engaging posts</li>
-            </ul>
-          </div>
-
+          <p
+            className="
+              text-gray-700 dark:text-gray-300
+              text-sm leading-relaxed
+            "
+          >
+            BlogIt is built by{" "}
+            <span className="text-teal-600 dark:text-teal-400 font-medium">
+              Chetan
+            </span>
+            , an Electrical Engineering student at NIT Hamirpur, with a
+            passion for writing and technology. The platform allows users
+            to freely express their thoughts, experiences, and stories
+            while connecting with like-minded bloggers.
+          </p>
         </div>
 
-        {/* Footer Note */}
-        <p className="text-gray-500 dark:text-gray-400 text-center md:mt-2"
-           style={{ fontSize: 'clamp(1rem, 1vw, 1.2)' }}>
-          Thank you for visiting. Keep exploring, learning, and sharing your own stories!
-        </p>
+        {/* ================= WHY BLOGS ================= */}
+        <div
+          className="
+            bg-gray-100 dark:bg-[#1F2937]
+            rounded-lg p-4 sm:p-6
+            border-l-4 border-blue-500
+          "
+        >
+          <h2
+            className="
+              text-lg font-semibold
+              text-gray-900 dark:text-gray-100
+              mb-2
+            "
+          >
+            Why Explore the Blogs?
+          </h2>
 
+          <ul
+            className="
+              list-disc list-inside
+              text-gray-700 dark:text-gray-300
+              text-sm space-y-1
+            "
+          >
+            <li>Discover experiences and stories shared by users</li>
+            <li>Gain inspiration from diverse perspectives</li>
+            <li>Enjoy a growing collection of engaging posts</li>
+          </ul>
+        </div>
+
+        {/* ================= FOOTER NOTE ================= */}
+        <p
+          className="
+            text-center
+            text-xs sm:text-sm
+            text-gray-500 dark:text-gray-400
+            pt-2
+          "
+        >
+          Thank you for visiting. Keep exploring, learning, and sharing your stories.
+        </p>
       </div>
     </div>
   );
