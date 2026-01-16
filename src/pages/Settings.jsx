@@ -2,7 +2,6 @@ import React, { useState ,useEffect} from "react";
 import Profile from "../components/Settings/Profile";
 import Account from "../components/Settings/Account";
 import Security from "../components/Settings/Security";
-import Danger from "../components/Settings/Danger";
 import Appearence from "../components/Settings/Appearence";
 
 
@@ -23,7 +22,7 @@ export default function SettingsPage() {
       <aside className="hidden md:block w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 p-6">
         <h2 className="text-xl font-semibold mb-6">Settings</h2>
         <nav className="space-y-2">
-          {[["profile","Profile"],["account","Account"],["security","Security"],["appearance","Appearance"],["danger","Danger"]].map(([key,label])=> (
+          {[["profile","Profile"],["account","Account"],["security","Security"],["appearance","Appearance"]].map(([key,label])=> (
             <button
               key={key}
               onClick={() => setActiveTab(key)}

@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import setupProfileImg from "../../assets/login.png";
 import { CiEdit } from "react-icons/ci";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";

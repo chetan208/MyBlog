@@ -65,7 +65,7 @@ export default function Hero() {
                 : "Login to start writing blogs and publish your ideas."}
             </p>
 
-            <p
+            {/* <p
               className="
                 mt-5 
                 text-base 
@@ -74,7 +74,7 @@ export default function Hero() {
               "
             >
               🚧 Site under maintenance. Some features may be temporarily unavailable.
-            </p>
+            </p> */}
 
 
               
